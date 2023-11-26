@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Constructor Assignment 1</title>
+</head>
+<body>
+    <h1>Constructor Function</h1>    
+</body>
+</html>
+<script>
+    function CreateBankAccount(accountNumber, name, type, balance) {
+        this.accountNumber = accountNumber;
+        this.name = name;
+        this.type = type;
+        this.balance = balance;
+
+        this.deposit = function(amount) {
+            this.balance += amount;
+        };
+
+        this.withdraw = function(amount) {
+            if (amount <= this.balance) {
+                this.balance -= amount;
+                console.log("Successfully withdrawn", amount);
+            } else {
+                console.log("Hey! You don't have sufficient balance to withdraw", this.balance);
+            }
+        };
+
+        this.getTotalBalance = function() {
+            console.log("Your total balance is -", this.balance);
+        };
+
+        this.isActive = function() {
+            return this.balance > 0;
+        };
+    }
+
+    let ac1 = new CreateBankAccount(1234, "Suraj", "Saving", 500);
+    let ac2 = new CreateBankAccount(6789, "Divya", "Saving", 500);
+    let ac3 = new CreateBankAccount(8954, "Radha", "Saving", 500);
+
+    ac1.deposit(100);
+    ac1.withdraw(500);
+    ac1.getTotalBalance();
+
+    ac2.deposit(200);
+    ac2.withdraw(300);
+
+    ac3.deposit(1000);
+    ac3.withdraw(500);
+
+    let accounts = [ac1, ac2, ac3];
+
+    function getTotalBalance(accounts) {
+        let total = 0;
+        for (let i = 0; i < accounts.length; i++) {
+            total += accounts[i].balance;
+        }
+        console.log(total);
+    }
+
+    function getActiveAccountsCount(accounts) {
+        let count = 0;
+        for (let i = 0; i < accounts.length; i++) {
+            if (accounts[i].isActive()) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    console.log("Total balance of all active accounts:", getTotalBalance(accounts));
+    console.log("Number of active accounts:", getActiveAccountsCount(accounts));
+</script>
